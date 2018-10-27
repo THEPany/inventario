@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-striped p-0 m-0">
     <thead>
     <tr>
         @foreach($columns as $column)

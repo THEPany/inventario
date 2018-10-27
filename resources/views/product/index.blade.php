@@ -10,16 +10,11 @@
                 @card
                 @slot('header', 'Todos los productos')
 
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Fechas</th>
-                            <th>Acciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                @slot('body_style', 'p-0 pt-4')
+
+                    @table
+                        @slot('columns', ['Producto','Cantidad', 'Fechas', 'Acciones'])
+
                         @forelse($products as $product)
                             <tr>
                                 <td>
@@ -51,18 +46,16 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">
-                                    <div class="alert alert-info alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                        <em>No hay datos registrados para esta tabla</em>
-                                    </div>
+                                <td colspan="4" class="text-center">
+                                    <em>No hay datos registrados para esta tabla</em>
                                 </td>
                             </tr>
                         @endforelse
-                        </tbody>
-                    </table>
+
+                    @endtable
 
                     {{ $products->links() }}
+
                 @endcard
             </div>
         </div>

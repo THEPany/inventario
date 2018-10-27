@@ -18,6 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
+    Route::get('home', [\App\Http\Controllers\HomeController::class, 'index']);
+
+    Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
+
+    Route::resource('abilities', 'AbilitieController')->only('index');
+    Route::resource('roles', 'RoleController');
+
     Route::get('providers', [\App\Http\Controllers\ProviderController::class, 'index']);
     Route::get('providers/create', [\App\Http\Controllers\ProviderController::class, 'create']);
     Route::post('providers', [\App\Http\Controllers\ProviderController::class, 'store'])->name('providers.store');

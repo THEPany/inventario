@@ -10,6 +10,8 @@
                 @card
                 @slot('header', 'Todas las compras')
 
+                @slot('body_style', 'p-0 pt-4')
+
                     @table
                     @slot('columns', ['Descripcion', 'stock', 'Fechas'])
 
@@ -39,14 +41,11 @@
                             </td>--}}
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="3">
-                                <div class="alert alert-info alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    <em>No hay datos registrados para esta tabla</em>
-                                </div>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <em>No hay datos registrados para esta tabla</em>
+                        </td>
+                    </tr>
                     @endforelse
                     @endtable
 
