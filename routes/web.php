@@ -29,5 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::post('products', [\App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
     Route::get('products/{product}/edit', [\App\Http\Controllers\ProductController::class, 'edit']);
     Route::put('products/{product}', [\App\Http\Controllers\ProductController::class, 'update'])->name('products.update');
+
+    Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
+    Route::get('purchases/create', [\App\Http\Controllers\PurchaseController::class, 'create']);
+    Route::post('purchases', [\App\Http\Controllers\PurchaseController::class, 'store'])->name('purchases.store');
+
+    Route::post('branch/office', [\App\Http\Controllers\BranchOfficeController::class, 'store'])->name('branchOffice.store');
 });
 

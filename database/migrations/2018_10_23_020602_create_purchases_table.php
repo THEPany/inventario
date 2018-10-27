@@ -15,7 +15,12 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->unsignedInteger('product_id');
+            $table->integer('stock');
+            $table->decimal('price',9,2);
+            $table->decimal('previous_price',9,2)->nullable();
+            $table->string('description');
+            $table->timestamp('created_at')->nullable();
         });
     }
 

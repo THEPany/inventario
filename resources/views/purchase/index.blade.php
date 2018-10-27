@@ -8,24 +8,23 @@
             </div>
             <div class="col-md-8">
                 @card
-                @slot('header', 'Todos los proveedores')
+                @slot('header', 'Todas las compras')
 
                     @table
-                        @slot('columns', ['Proveedores','Fechas', 'Acciones'])
+                    @slot('columns', ['Descripcion', 'stock', 'Fechas'])
 
-                    @forelse($providers as $provider)
+                    @forelse($purchases as $purchase)
                         <tr>
                             <td>
-                                <strong>{{ $provider->name }}</strong>
-                                <br>
-                                <small>{{ $provider->phone }}</small>
+                                <strong>{{ $purchase->description }}</strong>
                             </td>
                             <td>
-                                <strong>Creación: </strong> {{ $provider->created_at->format('d/m/Y') }}
-                                <br>
-                                <strong>Modificación: </strong> {{ $provider->updated_at->format('d/m/Y') }}
+                                <span class="badge badge-success">{{ $purchase->stock }}</span>
                             </td>
                             <td>
+                                <strong>Creación: </strong> {{ $purchase->created_at->format('d/m/Y') }}
+                            </td>
+                           {{-- <td>
                                 <div class="dropdown">
                                     <button class="btn btn-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-h"></i>
@@ -37,7 +36,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </td>
+                            </td>--}}
                         </tr>
                     @empty
                         <tr>
@@ -51,8 +50,7 @@
                     @endforelse
                     @endtable
 
-                    {{ $providers->links() }}
-
+                    {{ $purchases->links() }}
                 @endcard
             </div>
         </div>

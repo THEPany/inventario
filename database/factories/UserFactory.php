@@ -29,3 +29,13 @@ $factory->define(App\Provider::class, function (Faker $faker) {
         'address' => $faker->address
     ];
 });
+
+$factory->define(App\Product::class, function (Faker $faker) {
+    return [
+        'name' => $faker->unique()->name,
+        'provider_id' => factory(\App\Provider::class),
+        'stock' => $faker->numberBetween(10, 100),
+        'price' => $faker->randomElement([200, 300, 400, 500]),
+        'description' => $faker->paragraph(1)
+    ];
+});

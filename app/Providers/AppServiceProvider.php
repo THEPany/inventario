@@ -17,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale(config('app.locale'));
         Blade::component('partials._card', 'card');
+        Blade::component('partials._table', 'table');
+        Blade::include('partials._input', 'input');
+        Blade::include('partials._textarea', 'textarea');
     }
 
     /**

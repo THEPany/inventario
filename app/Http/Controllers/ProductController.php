@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\Provider;
+use App\{Product, Provider};
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -42,22 +42,30 @@ class ProductController extends Controller
     public function store()
     {
         request()->validate([
-           'name' => 'required',
-           'provider_id' => 'required',
-           'stock' => 'required',
-           'min_stock' => 'nullable',
-           'price' => 'required',
-           'description' => 'required'
+            'name' => 'required|unique:products',
+            'provider_id' => 'required',
+            'stock' => 'required|numeric',
+            'min_stock' => 'nullable|numeric',
+            'price' => 'required|numeric',
+            'description' => 'required'
         ]);
 
-        Product::create([
-            'name' => request()->name,
-            'provider_id' => request()->provider_id,
-            'stock' => request()->stock,
-            'min_stock' => request()->min_stock,
-            'price' => request()->price,
-            'description' => request()->description,
-        ]);
+        DB::transaction(function () {
+            $product = Product::create([
+                'name' => request()->name,
+                'provider_id' => request()->provider_id,
+                'stock' => request()->stock,
+                'min_stock' => request()->min_stock,
+                'price' => request()->price,
+                'description' => request()->description,
+            ]);
+
+            $product->purchases()->create([
+                'description' => "{$product->name}: Inventario inicial",
+                'stock' => $product->stock,
+                'price' => $product->price,
+            ]);
+        });
 
         return back()->with(['flash_success' => "Producto ".request()->name." creado exitosamente"]);
     }
@@ -87,7 +95,7 @@ class ProductController extends Controller
     public function update(Product $product)
     {
         request()->validate([
-            'name' => 'required',
+            'name' => 'required|unique:products,name'. $product->id,
             'provider_id' => 'required',
             'stock' => 'required|numeric',
             'min_stock' => 'nullable|numeric',
@@ -104,7 +112,7 @@ class ProductController extends Controller
             'description' => request()->description,
         ]);
 
-        return back()->with(['flash_success' => "Producto {$product->name} creado exitosamente"]);
+        return back()->with(['flash_success' => "Producto {$product->name} actualizado exitosamente"]);
     }
 
     /**
