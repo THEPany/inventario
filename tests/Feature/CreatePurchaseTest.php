@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
+use Bouncer;
 use Tests\TestCase;
-use App\{User, Product};
+use App\{Purchase, User, Product};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreatePurchaseTest extends TestCase
@@ -15,6 +16,8 @@ class CreatePurchaseTest extends TestCase
     {
         $product = factory(Product::class)->create(['stock' => 10, 'price' => 500,]);
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', Purchase::class);
 
         $response = $this->actingAs($user)->post(route('purchases.store', [
             'product_id' => $product->id,

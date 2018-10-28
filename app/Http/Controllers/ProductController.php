@@ -11,10 +11,14 @@ class ProductController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('view', Product::class);
+
         $products = Product::paginate();
+
         return view('product/index')->with(['products' => $products]);
     }
 
@@ -22,9 +26,12 @@ class ProductController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
+
         $product = new Product;
         $providers = Provider::select('id', 'name')->get();
 
@@ -38,9 +45,12 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store()
     {
+        $this->authorize('create', Product::class);
+
         request()->validate([
             'name' => 'required|unique:products',
             'provider_id' => 'required',
@@ -73,11 +83,14 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Product $product)
     {
+        $this->authorize('update', $product);
+
         $providers = Provider::select('id', 'name')->get();
 
         return view('product.edit')->with([
@@ -91,9 +104,12 @@ class ProductController extends Controller
      *
      * @param  \App\Product $product
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Product $product)
     {
+        $this->authorize('update', $product);
+
         request()->validate([
             'name' => 'required|unique:products,name'. $product->id,
             'provider_id' => 'required',
@@ -113,16 +129,5 @@ class ProductController extends Controller
         ]);
 
         return back()->with(['flash_success' => "Producto {$product->name} actualizado exitosamente"]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
-        //
     }
 }

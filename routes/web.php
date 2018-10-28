@@ -11,11 +11,16 @@
 |
 */
 
+Auth::routes(['register' => false]);
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('install.system');
 
-Auth::routes();
+Route::get('install', [\App\Http\Controllers\InstallSystemController::class, 'index'])->name('install');
+Route::get('install/system', [\App\Http\Controllers\InstallSystemController::class, 'installDatabase'])->name('install.system');
+Route::get('install/admin', [\App\Http\Controllers\InstallSystemController::class, 'createAdmin'])->name('install.admin');
+Route::post('install/admin', [\App\Http\Controllers\InstallSystemController::class, 'storeAdmin'])->name('install.admin.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('home', [\App\Http\Controllers\HomeController::class, 'index']);

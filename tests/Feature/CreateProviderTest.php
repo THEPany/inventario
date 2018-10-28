@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Provider;
-use App\User;
+use Bouncer;
 use Tests\TestCase;
+use App\{User, Provider};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateProviderTest extends TestCase
@@ -15,6 +15,8 @@ class CreateProviderTest extends TestCase
     function only_authorized_users_can_create_providers()
     {
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', Provider::class);
 
         $response = $this->actingAs($user)->post('providers', [
            'name' => 'Provedor 1',
@@ -46,6 +48,8 @@ class CreateProviderTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        Bouncer::allow($user)->to('create', Provider::class);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->post('providers', [
             'name' => '',
             'phone' => '(999) 999-9999',
@@ -59,6 +63,8 @@ class CreateProviderTest extends TestCase
     function provider_store_phone_is_required()
     {
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', Provider::class);
 
         $response = $this->handleValidationExceptions()->actingAs($user)->post('providers', [
             'name' => 'Provedor 1',
@@ -74,6 +80,8 @@ class CreateProviderTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        Bouncer::allow($user)->to('create', Provider::class);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->post('providers', [
             'name' => 'Provedor 1',
             'phone' => '(999) 999-999',
@@ -87,6 +95,8 @@ class CreateProviderTest extends TestCase
     function provider_store_phone_max_must_be_14()
     {
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', Provider::class);
 
         $response = $this->handleValidationExceptions()->actingAs($user)->post('providers', [
             'name' => 'Provedor 1',
@@ -103,6 +113,8 @@ class CreateProviderTest extends TestCase
         $user = factory(User::class)->create();
         factory(Provider::class)->create(['phone' => '(999) 999-9999']);
 
+        Bouncer::allow($user)->to('create', Provider::class);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->post('providers', [
             'name' => 'Provedor 1',
             'phone' => '(999) 999-9999',
@@ -117,6 +129,8 @@ class CreateProviderTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        Bouncer::allow($user)->to('create', Provider::class);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->post('providers', [
             'name' => 'Provedor 1',
             'phone' => '(999) 999-9999',
@@ -130,6 +144,8 @@ class CreateProviderTest extends TestCase
     function provider_store_address_min_must_be_15()
     {
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', Provider::class);
 
         $response = $this->handleValidationExceptions()->actingAs($user)->post('providers', [
             'name' => 'Provedor 1',

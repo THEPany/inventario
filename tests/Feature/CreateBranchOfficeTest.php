@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use Bouncer;
 use Tests\TestCase;
+use App\{User, BranchOffice};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateBranchOfficeTest extends TestCase
@@ -14,6 +15,8 @@ class CreateBranchOfficeTest extends TestCase
     function only_authorized_users_can_create_branch_office()
     {
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', BranchOffice::class);
 
         $response = $this->actingAs($user)->post(route('branchOffice.store',[
             'name' => 'Sucursal 1',

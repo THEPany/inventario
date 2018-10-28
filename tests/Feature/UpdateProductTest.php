@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Bouncer;
 use Tests\TestCase;
 use App\{Product, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,6 +16,8 @@ class UpdateProductTest extends TestCase
     {
         $product = factory(Product::class)->create();
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('update', $product);
 
         $response = $this->actingAs($user)->put(route('products.update', $product), [
             'name' => 'Platano',

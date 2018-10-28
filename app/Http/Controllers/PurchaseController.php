@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\{Purchase, Product};
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
@@ -12,9 +11,12 @@ class PurchaseController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('view', Purchase::class);
+
         $purchases = Purchase::with(['product' => function ($query) {
             $query->with('provider');
         }])->paginate();
@@ -26,9 +28,12 @@ class PurchaseController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize('create', Purchase::class);
+
         $products = Product::with('provider')->get();
 
         return view('purchase.create')->with(['products' => $products]);
@@ -38,9 +43,12 @@ class PurchaseController extends Controller
      * Store a newly created resource in storage.
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store()
     {
+        $this->authorize('create', Purchase::class);
+
         request()->validate([
             'product_id' => 'required|numeric',
             'price' => 'required|numeric',
@@ -61,50 +69,5 @@ class PurchaseController extends Controller
         });
 
         return back()->with(['flash_success' => "Compra de {$product->name} registrada exitosamente"]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Purchase  $purchase
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Purchase $purchase)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Purchase  $purchase
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Purchase $purchase)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Purchase  $purchase
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Purchase $purchase)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Purchase  $purchase
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Purchase $purchase)
-    {
-        //
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Bouncer;
 use Tests\TestCase;
 use App\{Provider, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,6 +16,8 @@ class UpdateProviderTest extends TestCase
     {
         $user = factory(User::class)->create();
         $provider = factory(Provider::class)->create();
+
+        Bouncer::allow($user)->to('update', $provider);
 
         $response = $this->actingAs($user)->put("providers/{$provider->id}", [
             'name' => 'Provedor 1',
@@ -49,6 +52,8 @@ class UpdateProviderTest extends TestCase
         $user = factory(User::class)->create();
         $provider = factory(Provider::class)->create();
 
+        Bouncer::allow($user)->to('update', $provider);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->put("providers/{$provider->id}", [
             'name' => '',
             'phone' => '(999) 999-9999',
@@ -63,6 +68,8 @@ class UpdateProviderTest extends TestCase
     {
         $user = factory(User::class)->create();
         $provider = factory(Provider::class)->create();
+
+        Bouncer::allow($user)->to('update', $provider);
 
         $response = $this->handleValidationExceptions()->actingAs($user)->put("providers/{$provider->id}", [
             'name' => 'Provedor 1',
@@ -79,6 +86,8 @@ class UpdateProviderTest extends TestCase
         $user = factory(User::class)->create();
         $provider = factory(Provider::class)->create();
 
+        Bouncer::allow($user)->to('update', $provider);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->put("providers/{$provider->id}", [
             'name' => 'Provedor 1',
             'phone' => '(999) 999-999',
@@ -93,6 +102,8 @@ class UpdateProviderTest extends TestCase
     {
         $user = factory(User::class)->create();
         $provider = factory(Provider::class)->create();
+
+        Bouncer::allow($user)->to('update', $provider);
 
         $response = $this->handleValidationExceptions()->actingAs($user)->put("providers/{$provider->id}", [
             'name' => 'Provedor 1',
@@ -110,6 +121,8 @@ class UpdateProviderTest extends TestCase
         $provider = factory(Provider::class)->create();
         factory(Provider::class)->create(['phone' => '(999) 999-9999']);
 
+        Bouncer::allow($user)->to('update', $provider);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->put("providers/{$provider->id}", [
             'name' => 'Provedor 1',
             'phone' => '(999) 999-9999',
@@ -125,6 +138,8 @@ class UpdateProviderTest extends TestCase
         $user = factory(User::class)->create();
         $provider = factory(Provider::class)->create();
 
+        Bouncer::allow($user)->to('update', $provider);
+
         $response = $this->handleValidationExceptions()->actingAs($user)->put("providers/{$provider->id}", [
             'name' => 'Provedor 1',
             'phone' => '(999) 999-9999',
@@ -139,6 +154,8 @@ class UpdateProviderTest extends TestCase
     {
         $user = factory(User::class)->create();
         $provider = factory(Provider::class)->create();
+
+        Bouncer::allow($user)->to('update', $provider);
 
         $response = $this->handleValidationExceptions()->actingAs($user)->put("providers/{$provider->id}", [
             'name' => 'Provedor 1',

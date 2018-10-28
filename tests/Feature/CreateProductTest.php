@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Bouncer;
 use Tests\TestCase;
 use App\{Product, User, Provider};
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,6 +16,8 @@ class CreateProductTest extends TestCase
     {
         $provider = factory(Provider::class)->create();
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', Product::class);
 
         $response = $this->actingAs($user)->post(route('products.store'), [
             'name' => 'Platano',
@@ -48,6 +51,8 @@ class CreateProductTest extends TestCase
     {
         $provider = factory(Provider::class)->create();
         $user = factory(User::class)->create();
+
+        Bouncer::allow($user)->to('create', Product::class);
 
         $response = $this->actingAs($user)->post(route('products.store'), [
             'name' => 'Platano',
