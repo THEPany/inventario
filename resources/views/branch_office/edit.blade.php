@@ -8,14 +8,16 @@
             </div>
             <div class="col-9">
                 @card
-                @slot('header', 'Crear Producto')
+                @slot('header', 'Crear sucursal')
 
-                <form method="POST" action="{{ route('products.store') }}">
-                    @include('product._fields')
-                    
+                <form method="POST" action="{{ route('branchOffice.update', $branchOffice) }}">
+                    @method('PUT')
+
+                    @include('branch_office._fields')
+
                     <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary font-weight-bold" @if($providers->isEmpty()) disabled @endif>
+                        <div class="col-8 offset-4">
+                            <button type="submit" class="btn btn-primary font-weight-bold">
                                 Crear
                             </button>
                         </div>

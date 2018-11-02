@@ -8,25 +8,27 @@
     'autofocus' => true
 ])
 
-<div class="form-group">
-    <label for="abilities" class="col-sm-2 control-label">Habiliades</label>
-    <div class="col-sm-10 row">
-        @foreach($abilities as $abilitie)
-            @if($abilitie->id !== 1)
-                <div class="custom-control custom-checkbox col-md-6">
-                    <input name="abilities[{{ $abilitie->id }}]"
-                           class="custom-control-input"
-                           type="checkbox"
-                           id="role_{{ $abilitie->id }}"
-                           value="{{ $abilitie->id }}"
-                            {{ old("abilities.{$abilitie->id}") || in_array($abilitie->id, $role->getAbilities()->pluck('id', 'id')->toArray()) ? 'checked' : '' }}>
-                    <label class="custom-control-label" for="role_{{ $abilitie->id }}">{{ $abilitie->title }}</label>
-                </div>
-            @endif
-        @endforeach
+<div class="form-group row">
+    <label for="abilities" class="col-sm-4 col-form-label text-md-right">Habiliades</label>
+    <div class="col-6">
+        <div class="col-12 row">
+            @foreach($abilities as $abilitie)
+                @if($abilitie->id !== 1)
+                    <div class="custom-control custom-checkbox col-6">
+                        <input name="abilities[{{ $abilitie->id }}]"
+                               class="custom-control-input"
+                               type="checkbox"
+                               id="role_{{ $abilitie->id }}"
+                               value="{{ $abilitie->id }}"
+                                {{ old("abilities.{$abilitie->id}") || in_array($abilitie->id, $role->getAbilities()->pluck('id', 'id')->toArray()) ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="role_{{ $abilitie->id }}">{{ $abilitie->title }}</label>
+                    </div>
+                @endif
+            @endforeach
 
-        @if ($errors->has('abilities[]'))
-            <span class="help-block">{{ $errors->first('abilities[]') }}</span>
-        @endif
+            @if ($errors->has('abilities[]'))
+                <span class="help-block">{{ $errors->first('abilities[]') }}</span>
+            @endif
+        </div>
     </div>
 </div>

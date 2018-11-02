@@ -18,7 +18,7 @@ class PurchaseController extends Controller
         $this->authorize('view', Purchase::class);
 
         $purchases = Purchase::with(['product' => function ($query) {
-            $query->with('provider');
+            $query->mainProducts()->with('provider');
         }])->paginate();
 
         return view('purchase.index')->with(['purchases' => $purchases]);
@@ -34,7 +34,7 @@ class PurchaseController extends Controller
     {
         $this->authorize('create', Purchase::class);
 
-        $products = Product::with('provider')->get();
+        $products = Product::mainProducts()->with('provider')->get();
 
         return view('purchase.create')->with(['products' => $products]);
     }
@@ -56,6 +56,8 @@ class PurchaseController extends Controller
         ]);
 
         $product = Product::findOrfail(request()->product_id);
+
+        abort_unless($product->isMainProdut(), 403);
 
         DB::transaction(function () use ($product) {
             $product->purchases()->create([

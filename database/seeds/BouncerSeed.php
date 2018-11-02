@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Silber\Bouncer\Database\Role;
 use Silber\Bouncer\Database\Ability;
-use App\{BranchOffice, Product, Provider, Purchase};
+use App\{BranchOffice, Product, Provider, Purchase, User};
 
 class BouncerSeed extends Seeder
 {
@@ -25,6 +25,7 @@ class BouncerSeed extends Seeder
         $this->proveedorAbilities();
         $this->purchaseAbilities();
         $this->branchOfficeAbilities();
+        $this->userAbilities();
     }
 
     protected function createRoles()
@@ -124,7 +125,7 @@ class BouncerSeed extends Seeder
 
         Bouncer::ability()->createForModel(Purchase::class, [
             'name' => 'create',
-            'title' => 'Crear compras'
+            'title' => 'Crear compra'
         ]);
     }
 
@@ -139,17 +140,42 @@ class BouncerSeed extends Seeder
     {
         Bouncer::ability()->createForModel(BranchOffice::class, [
             'name' => 'view',
-            'title' => 'Ver compras'
+            'title' => 'Ver sucursales'
         ]);
 
         Bouncer::ability()->createForModel(BranchOffice::class, [
             'name' => 'create',
-            'title' => 'Crear compras'
+            'title' => 'Crear sucursal'
         ]);
 
         Bouncer::ability()->createForModel(BranchOffice::class, [
             'name' => 'update',
-            'title' => 'Actualizar compras'
+            'title' => 'Actualizar sucursal'
+        ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Usuarios Habilidades
+    |--------------------------------------------------------------------------
+    |
+    | Todas la habilidades para la gestion del crud de usuarios
+    */
+    protected function userAbilities(): void
+    {
+        Bouncer::ability()->createForModel(User::class, [
+            'name' => 'view',
+            'title' => 'Ver usuarios'
+        ]);
+
+        Bouncer::ability()->createForModel(User::class, [
+            'name' => 'create',
+            'title' => 'Crear usuario'
+        ]);
+
+        Bouncer::ability()->createForModel(User::class, [
+            'name' => 'update',
+            'title' => 'Actualizar usuario'
         ]);
     }
 

@@ -16,13 +16,15 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('provider_id');
-            $table->string('name')->unique();
+            $table->unsignedInteger('branch_office_id')->nullable();
+            $table->string('name');
             $table->integer('stock');
             $table->integer('min_stock')->nullable();
             $table->decimal('price',9,2);
             $table->string('description');
             $table->enum('status', [\App\Product::DISPONIBLE, \App\Product::NO_DISPONIBLE])->default(\App\Product::DISPONIBLE);
             $table->timestamps();
+            $table->unique(['name', 'branch_office_id']);
         });
     }
 

@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('abilities', 'AbilitieController')->only('index');
     Route::resource('roles', 'RoleController');
+    Route::resource('users', 'UserController');
 
     Route::get('providers', [\App\Http\Controllers\ProviderController::class, 'index']);
     Route::get('providers/create', [\App\Http\Controllers\ProviderController::class, 'create']);
@@ -46,6 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::get('purchases/create', [\App\Http\Controllers\PurchaseController::class, 'create']);
     Route::post('purchases', [\App\Http\Controllers\PurchaseController::class, 'store'])->name('purchases.store');
 
+    Route::get('branch/office', [\App\Http\Controllers\BranchOfficeController::class, 'index'])->name('branchOffice.index');
+    Route::get('branch/office/create', [\App\Http\Controllers\BranchOfficeController::class, 'create'])->name('branchOffice.create');
     Route::post('branch/office', [\App\Http\Controllers\BranchOfficeController::class, 'store'])->name('branchOffice.store');
+    Route::get('branch/office/{branchOffice}/edit', [\App\Http\Controllers\BranchOfficeController::class, 'edit'])->name('branchOffice.edit');
+    Route::put('branch/office/{branchOffice}', [\App\Http\Controllers\BranchOfficeController::class, 'update'])->name('branchOffice.update');
 });
 

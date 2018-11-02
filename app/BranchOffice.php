@@ -12,4 +12,14 @@ class BranchOffice extends Model
     {
         return 'slug';
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

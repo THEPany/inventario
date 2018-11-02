@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\{Product, Provider};
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -17,7 +18,7 @@ class ProductController extends Controller
     {
         $this->authorize('view', Product::class);
 
-        $products = Product::paginate();
+        $products = Product::mainProducts()->paginate();
 
         return view('product/index')->with(['products' => $products]);
     }
@@ -52,7 +53,13 @@ class ProductController extends Controller
         $this->authorize('create', Product::class);
 
         request()->validate([
-            'name' => 'required|unique:products',
+            'name' => [
+                'required',
+                Rule::unique('products')->where(function ($query) {
+                    return $query->where([
+                        ['name', request()->name],
+                    ]);
+                })],
             'provider_id' => 'required',
             'stock' => 'required|numeric',
             'min_stock' => 'nullable|numeric',
@@ -91,6 +98,8 @@ class ProductController extends Controller
     {
         $this->authorize('update', $product);
 
+        abort_unless($product->isMainProdut(), 403);
+
         $providers = Provider::select('id', 'name')->get();
 
         return view('product.edit')->with([
@@ -110,8 +119,16 @@ class ProductController extends Controller
     {
         $this->authorize('update', $product);
 
+        abort_unless($product->isMainProdut(), 403);
+
         request()->validate([
-            'name' => 'required|unique:products,name'. $product->id,
+            'name' => [
+                'required',
+                Rule::unique('products')->ignore($product->id)->where(function ($query) use ($product) {
+                    return $query->where([
+                        ['name', $product->name],
+                    ]);
+                })],
             'provider_id' => 'required',
             'stock' => 'required|numeric',
             'min_stock' => 'nullable|numeric',

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Silber\Bouncer\Database\{Ability, Role};
 use App\Http\Requests\{StoreRoleRequest, UpdateRoleRequest};
 
@@ -18,9 +17,9 @@ class RoleController extends Controller
     public function index()
     {
         $this->authorize('view', Role::class);
-        $roles = Role::unless(auth()->user()->isAdmin(), function ($q){
-            $q->where('name','<>',User::ROLE_ADMIN);
-        })->paginate();
+
+        $roles = Role::paginate();
+
         return view('role.index', compact('roles'));
     }
 
@@ -33,10 +32,11 @@ class RoleController extends Controller
     public function create()
     {
         $this->authorize('create', Role::class);
-        $abilities = Ability::unless(auth()->user()->isAdmin(), function ($q){
-            $q->where('name','<>','*');
-        })->get();
+
+        $abilities = Ability::all();
+
         $role = new Role;
+
         return view('role.create', compact('abilities', 'role'));
     }
 
@@ -50,6 +50,7 @@ class RoleController extends Controller
     public function store(StoreRoleRequest $request)
     {
         $this->authorize('create', Role::class);
+
         return redirect()->route('roles.index')->with(['flash_success' => $request->createRole()]);
     }
 
@@ -63,13 +64,11 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $this->authorize('update', $role);
-        $response = $this->canAlterThisRole($role, "No puedes editar el rol {$role->title}");
-        if (!is_null($response)) {
-            return $response;
-        }
-        $abilities = Ability::unless(auth()->user()->isAdmin(), function ($q){
-            $q->where('name','<>','*');
-        })->get();
+
+        abort_if($role->id === 1, 403);
+
+        $abilities = Ability::all();
+
         return view('role.edit', compact('role', 'abilities'));
     }
 
@@ -84,11 +83,12 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $this->authorize('update', $role);
-        $response = $this->canAlterThisRole($role, "No puedes editar el rol {$role->title}");
-        if (!is_null($response)) {
-            return $response;
-        }
-        return redirect()->route('roles.index')->with(['flash_success' => $request->updateRole($role)]);
+
+        abort_if($role->id === 1, 403);
+
+        return redirect()
+            ->route('roles.index')
+            ->with(['flash_success' => $request->updateRole($role)]);
     }
 
     /**
@@ -101,24 +101,14 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $this->authorize('delete', $role);
-        $response = $this->canAlterThisRole($role, "No puedes Eliminar el rol {$role->title}");
-        if (!is_null($response)) {
-            return $response;
-        }
+
+        abort_if($role->id === 1, 403);
 
         $role->delete();
+
         return redirect()
             ->route('roles.index')
             ->with(['flash_success' => "Rol {$role->title} eliminado correctamente."]);
-    }
-
-    protected function canAlterThisRole(Role $role, $message)
-    {
-        if ($role->name === User::ROLE_ADMIN || $role->name === User::ROLE_TENANT_ADMIN) {
-            return redirect()
-                ->route('roles.index')
-                ->with(['flash_danger' => $message]);
-        }
     }
 
 }

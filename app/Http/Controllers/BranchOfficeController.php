@@ -17,7 +17,9 @@ class BranchOfficeController extends Controller
     {
         $this->authorize('create', BranchOffice::class);
 
-        return view('branch_office.index');
+        $branchOffices = BranchOffice::paginate();
+
+        return view('branch_office.index', compact('branchOffices'));
     }
 
     /**
@@ -46,7 +48,7 @@ class BranchOfficeController extends Controller
         $this->authorize('create', BranchOffice::class);
 
         request()->validate([
-            'name' => 'required|unique:branch_offices'
+            'name' => 'required|min:5|max:255|unique:branch_offices'
         ]);
 
         BranchOffice::create([
@@ -75,11 +77,23 @@ class BranchOfficeController extends Controller
      * Update the specified resource in storage.
      *
      * @param \App\BranchOffice $branchOffice
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(BranchOffice $branchOffice)
     {
         $this->authorize('update', $branchOffice);
+
+        request()->validate([
+            'name' => 'required|min:5|max:255|unique:branch_offices,name,'. $branchOffice->id
+        ]);
+
+        $branchOffice->update([
+            'name' => request()->name,
+            'slug' => str_slug(request()->name, '-'),
+        ]);
+
+        return redirect()->route('branchOffice.index')
+            ->with(['flash_success' => "Sucursal {$branchOffice->name} actualizado correctamente"]);
     }
 }

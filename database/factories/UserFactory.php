@@ -39,3 +39,10 @@ $factory->define(App\Product::class, function (Faker $faker) {
         'description' => $faker->paragraph(1)
     ];
 });
+
+$factory->define(App\BranchOffice::class, function (Faker $faker) {
+    return [
+        'name' => $name = $faker->unique()->name,
+        'slug' => str_slug($name, '-'),
+    ];
+});

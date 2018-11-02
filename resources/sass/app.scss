@@ -15,3 +15,11 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+a.text-dark:hover, a.text-dark:focus {
+  color: #3490dc !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f1f5f8 !important;
+}
