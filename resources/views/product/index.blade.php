@@ -3,14 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                @include('partials._sidebar')
-            </div>
-            <div class="col-9">
+            <div class="col-md-3">@include('partials._sidebar')</div>
+            <div class="col-md-9">
                 @card
-                @slot('header', 'Todos los productos')
+                    @slot('header')
+                        Todos los productos
+                        <div class="float-right">
+                            {{ $products->links() }}
+                        </div>
+                    @endslot
 
-                @slot('body_style', 'p-0 pt-4')
+                    @slot('body_style', 'p-0 pt-4')
 
                     @table
                         @slot('columns', ['Producto','Cantidad', 'Fechas', 'Acciones'])
@@ -53,8 +56,6 @@
                         @endforelse
 
                     @endtable
-
-                    {{ $products->links() }}
 
                 @endcard
             </div>

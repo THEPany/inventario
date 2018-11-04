@@ -28,8 +28,7 @@ class CreateTransactionTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(302);
-        $response->assertSessionHas(['flash_success' => 'Transacción completada con éxito']);
+        $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
             'branch_office_id' => null,
@@ -128,7 +127,7 @@ class CreateTransactionTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(302);
+        $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
             'branch_office_id' => null,

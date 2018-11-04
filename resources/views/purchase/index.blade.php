@@ -3,13 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-md-3">
                 @include('partials._sidebar')
             </div>
-            <div class="col-9">
+            <div class="col-md-9">
                 @card
-                @slot('header', 'Todas las compras')
-
+                @slot('header')
+                    Todas las compras
+                    <div class="float-right">
+                        {{ $purchases->links() }}
+                    </div>
+                @endslot
                 @slot('body_style', 'p-0 pt-4')
 
                     @table
@@ -49,7 +53,6 @@
                     @endforelse
                     @endtable
 
-                    {{ $purchases->links() }}
                 @endcard
             </div>
         </div>

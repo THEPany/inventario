@@ -8,7 +8,12 @@
             </div>
             <div class="col-9">
                 @card
-                @slot('header', 'Listado de roles')
+                @slot('header')
+                    Listado de roles'
+                    <div class="p-2 float-right">
+                        {{ $roles->links() }}
+                    </div>
+                @endslot
 
                 @slot('body_style', 'p-0 pt-4')
 
@@ -65,8 +70,6 @@
                 @endforelse
 
                 @endtable
-
-                {{ $roles->links() }}
 
                 @endcard
             </div>

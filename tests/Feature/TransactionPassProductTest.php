@@ -27,8 +27,7 @@ class TransactionPassProductTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(302);
-        $response->assertSessionHas(['flash_success' => "Transacción completada, los productos fueron enviados a la sucursal: {$branchOffice->name}"]);
+        $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
             'branch_office_id' => null,
@@ -69,8 +68,7 @@ class TransactionPassProductTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(302);
-        $response->assertSessionHas(['flash_success' => "Transacción completada, los productos fueron enviados a la sucursal: {$branchOffice->name}"]);
+        $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
             'branch_office_id' => null,

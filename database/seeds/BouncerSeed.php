@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Silber\Bouncer\Database\Role;
 use Silber\Bouncer\Database\Ability;
-use App\{BranchOffice, Product, Provider, Purchase, User};
+use App\{BranchOffice, Product, Provider, Purchase, Transaction, User};
 
 class BouncerSeed extends Seeder
 {
@@ -26,6 +26,8 @@ class BouncerSeed extends Seeder
         $this->purchaseAbilities();
         $this->branchOfficeAbilities();
         $this->userAbilities();
+        $this->transactionAbilities();
+        $this->othersAbilities();
     }
 
     protected function createRoles()
@@ -176,6 +178,32 @@ class BouncerSeed extends Seeder
         Bouncer::ability()->createForModel(User::class, [
             'name' => 'update',
             'title' => 'Actualizar usuario'
+        ]);
+    }
+
+    protected function transactionAbilities(): void
+    {
+        Bouncer::ability()->createForModel(Transaction::class, [
+            'name' => 'view',
+            'title' => 'ver transacciónes'
+        ]);
+
+        Bouncer::ability()->createForModel(Transaction::class, [
+            'name' => 'create',
+            'title' => 'Crear transacción'
+        ]);
+
+        Bouncer::ability()->createForModel(Transaction::class, [
+            'name' => 'move-product',
+            'title' => 'Mover productos a otras sucursales'
+        ]);
+    }
+
+    protected function othersAbilities(): void
+    {
+        Bouncer::ability()->create([
+            'name' => ' view-dashboard',
+            'title' => 'Ver dashboard'
         ]);
     }
 

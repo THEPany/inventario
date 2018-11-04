@@ -8,9 +8,14 @@
             </div>
             <div class="col-9">
                 @card
-                @slot('header', 'Todos los proveedores')
+                    @slot('header')
+                        Todos los proveedores
+                        <div class="float-right">
+                            {{ $providers->links() }}
+                        </div>
+                    @endslot
 
-                @slot('body_style', 'p-0 pt-4')
+                    @slot('body_style', 'p-0 pt-4')
 
                     @table
                         @slot('columns', ['Proveedores','Fechas', 'Acciones'])
@@ -49,9 +54,6 @@
                     </tr>
                     @endforelse
                     @endtable
-
-                    {{ $providers->links() }}
-
                 @endcard
             </div>
         </div>

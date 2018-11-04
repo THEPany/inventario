@@ -3,14 +3,15 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                @include('partials._sidebar')
-            </div>
-            <div class="col-9">
+            <div class="col-md-3">@include('partials._sidebar')</div>
+            <div class="col-md-9">
                 @card
-                @slot('header', ' Todas las habilidades')
+                    @slot('header')
+                        Todas las habilidades
+                        <div class="float-right">{{ $abilities->links() }}</div>
+                    @endslot
 
-                @slot('body_style', 'p-0 pt-4')
+                    @slot('body_style', 'p-0 pt-4')
 
                 <table class="table table-striped m-0">
                     <thead>
@@ -34,8 +35,6 @@
                     @endforelse
                     </tbody>
                 </table>
-
-                {{ $abilities->links() }}
                 @endcard
             </div>
         </div>
