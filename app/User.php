@@ -28,6 +28,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = strtolower($name);
+    }
+
+    public function getNameAttribute($name)
+    {
+        return ucwords($name);
+    }
+
     public function branchOffice()
     {
         return $this->belongsTo(BranchOffice::class);

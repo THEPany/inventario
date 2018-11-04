@@ -27,7 +27,7 @@ class CreateUserTest extends TestCase
                 'password_confirmation' => 'secret',
             ])
             ->assertStatus(Response::HTTP_FOUND)
-            ->assertSessionHas(['flash_success' => "Usuario cristian gomez creado con éxito."]);
+            ->assertSessionHas(['flash_success' => "Usuario Cristian Gomez creado con éxito."]);
 
         $this->assertCredentials([
             'name' => 'cristian gomez',

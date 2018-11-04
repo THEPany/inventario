@@ -8,6 +8,16 @@ class BranchOffice extends Model
 {
     protected $guarded = [];
 
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = strtolower($name);
+    }
+
+    public function getNameAttribute($name)
+    {
+        return ucwords($name);
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -21,5 +31,10 @@ class BranchOffice extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function providers()
+    {
+        return $this->hasMany(Provider::class);
     }
 }

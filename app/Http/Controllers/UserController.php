@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\{BranchOffice, User};
 use Silber\Bouncer\Database\Role;
 use App\Http\Requests\{StoreUserRequest, UpdateUserRequest};
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -88,6 +89,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+
+        abort_if($user->id === auth()->id(), Response::HTTP_FORBIDDEN);
+
+        abort_if($user->branchOffice()->exists(),
+            Response::HTTP_BAD_REQUEST, "No puedes eliminar el usuario {$user->name}, hay informacion que depende de esta");
+
 
         $user->delete();
 

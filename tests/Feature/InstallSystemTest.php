@@ -51,7 +51,7 @@ class InstallSystemTest extends TestCase
             ->assertRedirect('home');
 
         $this->assertCredentials([
-            'name' => 'Cristian',
+            'name' => 'cristian',
             'email' => 'example@example.com',
             'password' => '123456'
         ]);

@@ -52,5 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::post('branch/office', [\App\Http\Controllers\BranchOfficeController::class, 'store'])->name('branchOffice.store');
     Route::get('branch/office/{branchOffice}/edit', [\App\Http\Controllers\BranchOfficeController::class, 'edit'])->name('branchOffice.edit');
     Route::put('branch/office/{branchOffice}', [\App\Http\Controllers\BranchOfficeController::class, 'update'])->name('branchOffice.update');
+
+    Route::post('transactions', [\App\Http\Controllers\TransactionController::class, 'store'])->name('transactions.store');
+    Route::post('transactions/pass/product', [\App\Http\Controllers\TransactionPassProductController::class, 'store'])->name('transaction.pass.store');
 });
 

@@ -84,7 +84,7 @@ class ProductController extends Controller
             ]);
         });
 
-        return back()->with(['flash_success' => "Producto ".request()->name." creado exitosamente"]);
+        return back()->with(['flash_success' => "Producto ". ucwords(request()->name) ." creado exitosamente"]);
     }
 
     /**

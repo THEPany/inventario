@@ -26,7 +26,7 @@ class CreateBranchOfficeTest extends TestCase
         $response->assertSessionHas(['flash_success' => 'Sucursal Sucursal 1 Creada correctamente']);
 
         $this->assertDatabaseHas('branch_offices', [
-           'name' => 'Sucursal 1',
+           'name' => 'sucursal 1',
            'slug' => 'sucursal-1'
         ]);
     }

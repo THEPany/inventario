@@ -11,6 +11,16 @@ class Product extends Model
     const DISPONIBLE = "Disponible";
     const NO_DISPONIBLE = "No disponible";
 
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = strtolower($name);
+    }
+
+    public function getNameAttribute($name)
+    {
+        return ucwords($name);
+    }
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);
@@ -34,5 +44,10 @@ class Product extends Model
     public function isMainProdut()
     {
         return $this->branch_office_id === null;
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

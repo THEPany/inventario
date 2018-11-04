@@ -31,7 +31,7 @@ class UpdateProductTest extends TestCase
         $response->assertSessionHas(['flash_success' => 'Producto Platano actualizado exitosamente']);
 
         $this->assertDatabaseHas('products', [
-            'name' => 'Platano',
+            'name' => 'platano',
             'provider_id' => $product->provider_id,
         ]);
     }

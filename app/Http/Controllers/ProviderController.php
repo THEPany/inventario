@@ -16,7 +16,7 @@ class ProviderController extends Controller
     {
         $this->authorize('view', Provider::class);
 
-        $providers = Provider::paginate();
+        $providers = Provider::mainProviders()->paginate();
         return view('provider/index')->with(['providers' => $providers]);
     }
 
@@ -70,6 +70,8 @@ class ProviderController extends Controller
     {
         $this->authorize('update', $provider);
 
+        abort_unless($provider->isMainProvider(), 403);
+
         return view('provider/edit')->with(['provider' => $provider]);
     }
 
@@ -83,6 +85,8 @@ class ProviderController extends Controller
     public function update(Provider $provider)
     {
         $this->authorize('update', $provider);
+
+        abort_unless($provider->isMainProvider(), 403);
 
         request()->validate([
             'name' => 'required',

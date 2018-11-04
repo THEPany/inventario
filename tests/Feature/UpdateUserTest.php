@@ -26,7 +26,7 @@ class UpdateUserTest extends TestCase
                 'email' => 'cristiangomeze@hotmail.com',
             ])
             ->assertStatus(Response::HTTP_FOUND)
-            ->assertSessionHas(['flash_success' => "Usuario cristian gomez actualizado con exito."]);
+            ->assertSessionHas(['flash_success' => "Usuario Cristian Gomez actualizado con exito."]);
 
         $this->assertDatabaseHas('users', [
             'name' => 'cristian gomez',

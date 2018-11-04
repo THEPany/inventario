@@ -20,7 +20,7 @@ class CreateProductTest extends TestCase
         Bouncer::allow($user)->to('create', Product::class);
 
         $response = $this->actingAs($user)->post(route('products.store'), [
-            'name' => 'Platano',
+            'name' => 'platano',
             'provider_id' => $provider->id,
             'stock' => 10,
             'price' => 7.5,
@@ -31,7 +31,7 @@ class CreateProductTest extends TestCase
         $response->assertSessionHas(['flash_success' => 'Producto Platano creado exitosamente']);
 
         $this->assertDatabaseHas('products', [
-            'name' => 'Platano',
+            'name' => 'platano',
             'provider_id' => $provider->id,
             'price' => 7.5
         ]);
@@ -55,7 +55,7 @@ class CreateProductTest extends TestCase
         Bouncer::allow($user)->to('create', Product::class);
 
         $response = $this->actingAs($user)->post(route('products.store'), [
-            'name' => 'Platano',
+            'name' => 'platano',
             'provider_id' => $provider->id,
             'stock' => 10,
             'price' => 7.5,

@@ -27,7 +27,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
         $this->assertSoftDeleted('users', [
             'id' => $user->id,
-            'name' => $user->name,
+            'name' => strtolower($user->name),
         ]);
     }
 
@@ -45,7 +45,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'name' => $user->name,
+            'name' => strtolower($user->name),
         ]);
     }
 
@@ -60,7 +60,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'name' => $user->name
+            'name' => strtolower($user->name),
         ]);
     }
 }

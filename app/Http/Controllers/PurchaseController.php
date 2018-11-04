@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\{Purchase, Product};
 use Illuminate\Support\Facades\DB;
+use App\{Events\ProductStatus, Purchase, Product};
 
 class PurchaseController extends Controller
 {
@@ -68,6 +68,8 @@ class PurchaseController extends Controller
             ]);
 
             $product->increment('stock', request()->stock, ['price' => request()->price]);
+
+            event(new ProductStatus($product));
         });
 
         return back()->with(['flash_success' => "Compra de {$product->name} registrada exitosamente"]);
