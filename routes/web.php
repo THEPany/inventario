@@ -59,3 +59,23 @@ Route::middleware('auth')->group(function () {
     Route::post('transactions/pass/product', [\App\Http\Controllers\TransactionPassProductController::class, 'store'])->name('transaction.pass.store');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('{branchOffice}/dashboard', [\App\Http\Controllers\Tenant\DashboardController::class, 'index']);
+
+    Route::get('{branchOffice}/providers', [\App\Http\Controllers\Tenant\ProviderController::class, 'index']);
+    Route::get('{branchOffice}/providers/create', [\App\Http\Controllers\Tenant\ProviderController::class, 'create']);
+    Route::post('{branchOffice}/providers', [\App\Http\Controllers\Tenant\ProviderController::class, 'store'])->name('tenant.providers.store');
+    Route::get('{branchOffice}/providers/{provider}/edit', [\App\Http\Controllers\Tenant\ProviderController::class, 'edit']);
+    Route::put('{branchOffice}/providers/{provider}', [\App\Http\Controllers\Tenant\ProviderController::class, 'update'])->name('tenant.providers.update');
+
+    Route::get('{branchOffice}/products', [\App\Http\Controllers\Tenant\ProductController::class, 'index']);
+    Route::get('{branchOffice}/products/create', [\App\Http\Controllers\Tenant\ProductController::class, 'create']);
+    Route::post('{branchOffice}/products', [\App\Http\Controllers\Tenant\ProductController::class, 'store'])->name('tenant.products.store');
+    Route::get('{branchOffice}/products/{product}/edit', [\App\Http\Controllers\Tenant\ProductController::class, 'edit']);
+    Route::put('{branchOffice}/products/{product}', [\App\Http\Controllers\Tenant\ProductController::class, 'update'])->name('tenant.products.update');
+
+    Route::get('{branchOffice}/purchases', [\App\Http\Controllers\Tenant\PurchaseController::class, 'index']);
+    Route::get('{branchOffice}/purchases/create', [\App\Http\Controllers\Tenant\PurchaseController::class, 'create']);
+    Route::post('{branchOffice}/purchases', [\App\Http\Controllers\Tenant\PurchaseController::class, 'store'])->name('tenant.purchases.store');
+});
+

@@ -17,9 +17,10 @@ class CreateProvidersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('branch_office_id')->nullable();
             $table->string('name');
-            $table->string('phone')->unique();
+            $table->string('phone');
             $table->string('address');
             $table->timestamps();
+            $table->unique(['branch_office_id', 'phone']);
         });
     }
 
