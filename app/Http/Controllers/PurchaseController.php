@@ -18,8 +18,10 @@ class PurchaseController extends Controller
         $this->authorize('view', Purchase::class);
 
         $purchases = Purchase::with(['product' => function ($query) {
-            $query->mainProducts()->with('provider');
-        }])->paginate();
+            $query->with('provider');
+        }])->whereHas('product', function ($query_2) {
+            $query_2->mainProducts();
+        })->paginate();
 
         return view('purchase.index')->with(['purchases' => $purchases]);
     }

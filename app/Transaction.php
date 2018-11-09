@@ -13,6 +13,11 @@ class Transaction extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function branchOffice()
+    {
+        return $this->belongsTo(BranchOffice::class);
+    }
+
     public static function createTransaction(Product $product, $_product)
     {
         return self::create([

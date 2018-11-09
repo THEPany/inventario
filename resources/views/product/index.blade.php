@@ -23,10 +23,14 @@
                                 <td>
                                     <strong>{{ $product->name }}</strong>
                                     <br>
-                                    {{ $product->price }}
+                                    RD$ {{ $product->price }}
                                 </td>
                                 <td>
-                                    <span class="badge badge-success">{{ $product->stock }}</span>
+                                    @if($product->stock > $product->min_stock)
+                                        <span class="badge badge-success">{{ $product->stock }}</span>
+                                    @else
+                                        <span class="badge badge-warning">{{ $product->stock }}</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <strong>Creación: </strong> {{ $product->created_at->format('d/m/Y') }}

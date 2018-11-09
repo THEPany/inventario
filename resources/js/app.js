@@ -16,6 +16,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('transaction-main', require('./components/TransactionMain.vue'));
+Vue.component('tenant-transaction-main', require('./components/tenant/TenantTransactionMain.vue'));
 
 const app = new Vue({
     el: '#app'

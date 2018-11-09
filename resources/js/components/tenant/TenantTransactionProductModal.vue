@@ -16,7 +16,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <table id="table-1" class="display" style="width:100%">
+                        <table id="table-2" class="display" style="width:100%">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -53,7 +53,7 @@
     }
 
     $(document).ready(function() {
-        $('#table-1').DataTable({
+        $('#table-2').DataTable({
             "language": {
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ registros",

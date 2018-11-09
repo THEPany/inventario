@@ -37,4 +37,9 @@ class BranchOffice extends Model
     {
         return $this->hasMany(Provider::class);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

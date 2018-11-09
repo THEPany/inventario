@@ -70,3 +70,25 @@
 @endcan
 
 {{-- END COMPRAS --}}
+
+{{-- TRANSACCIONES --}}
+
+@if(auth()->user()->can('tenant-view', \App\Transaction::class) || auth()->user()->can('tenant-create', \App\Transaction::class))
+    <a class="list-group-item border-0 bg-transparent font-weight-bold" style="color: #8795a1;">TRANSACCIONES</a>
+@endif
+
+@can('tenant-create', \App\Transaction::class)
+    <a href="{{ url("/{$branchOffice->slug}/transactions/create") }}" class="list-group-item border-0 bg-transparent text-dark font-weight-bold pt-0 pb-1">
+        <i class="fas fa-cart-plus"></i>
+        Registrar transacción
+    </a>
+@endcan
+
+@can('tenant-view', \App\Transaction::class)
+    <a href="{{ url("/{$branchOffice->slug}/transactions") }}" class="list-group-item border-0 bg-transparent text-dark font-weight-bold pt-0">
+        <i class="fas fa-dot-circle"></i>
+        Lista de transacciónes
+    </a>
+@endcan
+
+{{-- END TRANSACCIONES --}}

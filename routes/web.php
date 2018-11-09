@@ -77,5 +77,9 @@ Route::middleware('auth')->group(function () {
     Route::get('{branchOffice}/purchases', [\App\Http\Controllers\Tenant\PurchaseController::class, 'index']);
     Route::get('{branchOffice}/purchases/create', [\App\Http\Controllers\Tenant\PurchaseController::class, 'create']);
     Route::post('{branchOffice}/purchases', [\App\Http\Controllers\Tenant\PurchaseController::class, 'store'])->name('tenant.purchases.store');
+
+    Route::get('{branchOffice}/transactions', [\App\Http\Controllers\Tenant\TransactionController::class, 'index'])->name('tenant.transactions.index');
+    Route::post('{branchOffice}/transactions', [\App\Http\Controllers\Tenant\TransactionController::class, 'store'])->name('tenant.transactions.store');
+    Route::get('{branchOffice}/transactions/create', [\App\Http\Controllers\Tenant\TransactionController::class, 'create'])->name('tenant.transactions.create');
 });
 
