@@ -10,7 +10,7 @@
                 @card
                 @slot('header', "Editar: {$provider->name}")
 
-                <form method="POST" action="{{ route('providers.update', $provider) }}">
+                <form method="POST" action="{{ route('providers.update', $provider) }}" autocomplete="off">
                     @method('PUT')
                     @include('provider.fields')
 

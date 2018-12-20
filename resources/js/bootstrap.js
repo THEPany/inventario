@@ -54,3 +54,9 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+window.Inputmask = require('inputmask');
+
+window.onload = function () {
+    Inputmask().mask(document.querySelectorAll("input"));
+};

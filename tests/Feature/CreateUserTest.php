@@ -25,6 +25,7 @@ class CreateUserTest extends TestCase
                 'email' => 'cristiangomeze@hotmail.com',
                 'password' => 'secret',
                 'password_confirmation' => 'secret',
+                'branch_office_id' => 0
             ])
             ->assertStatus(Response::HTTP_FOUND)
             ->assertSessionHas(['flash_success' => "Usuario Cristian Gomez creado con éxito."]);
@@ -44,6 +45,7 @@ class CreateUserTest extends TestCase
             'email' => 'cristiangomeze@hotmail.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
+            'branch_office_id' => 0
         ])
             ->assertStatus(Response::HTTP_FOUND)
             ->assertRedirect('/login');
@@ -65,6 +67,7 @@ class CreateUserTest extends TestCase
                 'email' => 'cristiangomeze@hotmail.com',
                 'password' => 'secret',
                 'password_confirmation' => 'secret',
+                'branch_office_id' => 0
             ])
             ->assertStatus(Response::HTTP_FORBIDDEN);
 

@@ -13,6 +13,7 @@
     'name' => 'phone',
     'value' => old('phone', $provider->phone),
     'required' => true,
+    'phonemask' => true,
 ])
 
 @textarea([

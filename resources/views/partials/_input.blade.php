@@ -43,7 +43,11 @@
 
                 @isset($required) required @endisset
 
-                @isset($autofocus) autofocus @endisset>
+                @isset($autofocus) autofocus @endisset
+
+                @isset($phonemask) data-inputmask='"mask": "(999) 999-9999"' data-mask @endisset
+
+                autocomplete="nope">
 
         @if ($errors->has($name))
             <span class="invalid-feedback" role="alert">

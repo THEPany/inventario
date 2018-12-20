@@ -34,6 +34,6 @@ class Transaction extends Model
 
     public function isMainTransaction()
     {
-        return $this->branch_office_id === null;
+        return $this->branch_office_id == 0;
     }
 }

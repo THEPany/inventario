@@ -21,7 +21,9 @@
 
                 @isset($required)
                 required
-                @endisset>{{ old($name, $value ?? '') }}</textarea>
+                @endisset
+
+                autocomplete="nope">{{ old($name, $value ?? '') }}</textarea>
 
         @if ($errors->has($name))
             <span class="invalid-feedback" role="alert">

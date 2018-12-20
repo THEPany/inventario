@@ -15,7 +15,7 @@ class CreateProvidersTable extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('branch_office_id')->nullable();
+            $table->unsignedInteger('branch_office_id')->default(0);
             $table->string('name');
             $table->string('phone');
             $table->string('address');

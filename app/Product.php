@@ -43,7 +43,7 @@ class Product extends Model
 
     public function isMainProdut()
     {
-        return $this->branch_office_id === null;
+        return $this->branch_office_id == 0;
     }
 
     public function transactions()

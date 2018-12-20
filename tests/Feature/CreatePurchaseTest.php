@@ -19,7 +19,7 @@ class CreatePurchaseTest extends TestCase
 
         Bouncer::allow($user)->to('create', Purchase::class);
 
-        $response = $this->actingAs($user)->post(route('purchases.store', [
+        $response = $this->withExceptionHandling()->actingAs($user)->post(route('purchases.store', [
             'product_id' => $product->id,
             'stock' => 10,
             'price' => 1000,

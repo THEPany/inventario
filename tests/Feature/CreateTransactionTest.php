@@ -31,7 +31,7 @@ class CreateTransactionTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $uvas->id,
             'description' => 'Descripcion uvas'
         ]);
@@ -42,7 +42,7 @@ class CreateTransactionTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $manzanas->id,
             'description' => 'Descripcion manzanas'
         ]);
@@ -71,13 +71,13 @@ class CreateTransactionTest extends TestCase
         $response->assertStatus(403);
 
         $this->assertDatabaseMissing('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $uvas->id,
             'description' => 'Descripcion uvas'
         ]);
 
         $this->assertDatabaseMissing('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $manzanas->id,
             'description' => 'Descripcion manzanas'
         ]);
@@ -101,7 +101,7 @@ class CreateTransactionTest extends TestCase
         $response->assertStatus(400);
 
         $this->assertDatabaseMissing('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $uvas->id,
             'description' => 'Descripcion uvas'
         ]);
@@ -130,7 +130,7 @@ class CreateTransactionTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $uvas->id,
             'description' => 'Descripcion uvas'
         ]);

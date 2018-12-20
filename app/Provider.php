@@ -25,6 +25,6 @@ class Provider extends Model
 
     public function isMainProvider()
     {
-        return $this->branch_office_id == null;
+        return $this->branch_office_id == 0;
     }
 }

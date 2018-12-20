@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|min:5|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'branch_office_id' => 'nullable',
+            'branch_office_id' => 'required',
             'role' => 'nullable|String'
         ];
     }

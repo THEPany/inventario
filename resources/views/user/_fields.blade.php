@@ -51,21 +51,16 @@
     <label class="col-sm-4 col-form-label text-md-right">Sucursal</label>
 
     <div class="col-sm-6">
-        @if($branchOffices->isNotEmpty())
-            <select class="form-control" id="branch_office_id" name="branch_office_id">
-                @foreach($branchOffices as $branchOffice)
-                    <option value="{{ old('branch_office_id', $branchOffice->id) }}" {{ $branchOffice->id === $user->branch_office_id ? 'selected' : ''  }}>
-                        {{ $branchOffice->name }}
-                    </option>
-                @endforeach
-            </select>
-            @if ($errors->has('branch_office_id'))
-                <span class="help-block">{{ $errors->first('branch_office_id') }}</span>
-            @endif
-        @else
-            <div class="alert alert-warning" role="alert">
-                No hay sucursales registradas
-            </div>
+        <select class="form-control" id="branch_office_id" name="branch_office_id">
+            <option value="{{ old('branch_office_id', 0) }}" {{ $branchOffice->id === $user->branch_office_id ? 'selected' : ''  }}>Principal</option>
+            @foreach($branchOffices as $branchOffice)
+                <option value="{{ old('branch_office_id', $branchOffice->id) }}" {{ $branchOffice->id === $user->branch_office_id ? 'selected' : ''  }}>
+                    {{ $branchOffice->name }}
+                </option>
+            @endforeach
+        </select>
+        @if ($errors->has('branch_office_id'))
+            <span class="help-block">{{ $errors->first('branch_office_id') }}</span>
         @endif
     </div>
 </div>

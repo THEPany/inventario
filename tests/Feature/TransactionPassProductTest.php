@@ -30,7 +30,7 @@ class TransactionPassProductTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $uvas->id,
             'description' => 'Descripcion uvas'
         ]);
@@ -71,7 +71,7 @@ class TransactionPassProductTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('transactions', [
-            'branch_office_id' => null,
+            'branch_office_id' => 0,
             'product_id' => $uvas->id,
             'description' => 'Descripcion uvas'
         ]);

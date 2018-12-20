@@ -24,6 +24,7 @@ class UpdateUserTest extends TestCase
             ->put(route('users.update', $user), [
                 'name' => 'cristian gomez',
                 'email' => 'cristiangomeze@hotmail.com',
+                'branch_office_id' => 0
             ])
             ->assertStatus(Response::HTTP_FOUND)
             ->assertSessionHas(['flash_success' => "Usuario Cristian Gomez actualizado con exito."]);
@@ -58,6 +59,7 @@ class UpdateUserTest extends TestCase
             ->put(route('users.update', $user), [
                 'name' => 'cristian gomez',
                 'email' => 'cristiangomeze@hotmail.com',
+                'branch_office_id' => 0
             ])
             ->assertStatus(Response::HTTP_FORBIDDEN);
 

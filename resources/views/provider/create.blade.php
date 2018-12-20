@@ -10,7 +10,7 @@
                 @card
                 @slot('header', 'Crear Proveedor')
 
-                <form method="POST" action="{{ route('providers.store') }}">
+                <form method="POST" action="{{ route('providers.store') }}" autocomplete="off">
                     @include('provider.fields')
 
                     <div class="form-group row mb-0">
