@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:255',
-            'email' => 'required|email|max:255|unique:users,email,'. $this->user->id,
+            'username' => 'required|max:255|unique:users,username,'. $this->user->id,
             'password' => 'nullable|min:6|confirmed',
             'branch_office_id' => 'required',
             'role' => 'nullable|String'
@@ -38,7 +38,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'nombre',
-            'email' => 'correo electrónico',
+            'username' => 'nombre de usuario',
             'branch_office_id' => 'sucursal',
             'role' => 'rol'
         ];
@@ -48,7 +48,7 @@ class UpdateUserRequest extends FormRequest
     {
         $user->update([
             'name' => $this->name,
-            'email' => $this->email,
+            'username' => $this->username,
             'branch_office_id' => $this->branch_office_id
         ]);
 

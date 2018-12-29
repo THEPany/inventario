@@ -9,16 +9,17 @@
             <div class="col-9">
                 @card
                 @slot('header')
-                    Listado de roles'
+                    Listado de roles
                     <div class="p-2 float-right">
                         {{ $roles->links() }}
                     </div>
                 @endslot
+                @slot('header_style', 'text-muted')
 
-                @slot('body_style', 'p-0 pt-4')
+                @slot('body_style', 'p-0 pt-0')
 
                 @table
-                @slot('columns', ['#','Rol', 'Habilidades', 'Acciones'])
+                    @if($roles->count()) @slot('columns', ['#','Rol', 'Habilidades', 'Acciones']) @endif
 
                 @forelse($roles as $role)
                     <tr>
@@ -31,30 +32,25 @@
                         </td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-light btn-sm" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    @can('update', $role)
-                                        <a class="dropdown-item" href="{{ route('roles.edit', $role) }}">
-                                            <i class="fa fa-pencil-alt"></i>
-                                            Editar
-                                        </a>
-                                    @endcan
+                                @can('update', $role)
+                                    <a class="btn btn-primary" href="{{ route('roles.edit', $role) }}">
+                                        Editar
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </a>
+                                @endcan
 
-                                    @can('delete', $role)
-                                        <a class="dropdown-item" href="{{ route('roles.destroy', $role) }}"
-                                           onclick="event.preventDefault();
-                                                   document.getElementById('roles-delete-{{$role->id}}').submit();">
-                                            <i class="fa fa-trash"></i>
-                                            Eliminar
-                                        </a>
-                                        <form id="roles-delete-{{$role->id}}" action="{{ route('roles.destroy', $role) }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                    @endcan
-                                </div>
+                                @can('delete', $role)
+                                    <a class="btn btn-outline-danger" href="{{ route('roles.destroy', $role) }}"
+                                       onclick="event.preventDefault();
+                                               document.getElementById('roles-delete-{{$role->id}}').submit();">
+                                        Eliminar
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <form id="roles-delete-{{$role->id}}" action="{{ route('roles.destroy', $role) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                @endcan
                             </div>
 
 
@@ -63,8 +59,15 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">
+                        <td colspan="3" class="text-center bg-secondary border-0 pb-5 pt-5">
                             <em>No hay datos registrados para esta tabla</em>
+                            <br>
+                            @can('create', \Silber\Bouncer\Database\Role::class)
+                                <a href="{{ url('/roles/create') }}" class="btn btn-primary mt-4">
+                                    <i class="fas fa-plus"></i>
+                                    Crear Rol
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforelse

@@ -33,7 +33,7 @@ class RoleController extends Controller
     {
         $this->authorize('create', Role::class);
 
-        $abilities = Ability::all();
+        $abilities = Ability::all()->groupBy('entity_type');
 
         $role = new Role;
 
@@ -67,7 +67,7 @@ class RoleController extends Controller
 
         abort_if($role->id === 1, 403);
 
-        $abilities = Ability::all();
+        $abilities = Ability::all()->groupBy('entity_type');
 
         return view('role.edit', compact('role', 'abilities'));
     }

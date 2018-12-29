@@ -7,13 +7,9 @@
                 @include('partials._sidebar')
             </div>
             <div class="col-md-9">
-                @card
-                    @slot('header', 'Registrar transacciónes')
-
-                    <transaction-main :products="{{ $products }}"
-                                      :branch-offices="{{ $branchOffices }}">
-                    </transaction-main>
-                @endcard
+                <transaction-main :products="{{ $products }}"
+                                  :branch-offices="{{ $branchOffices }}">
+                </transaction-main>
             </div>
         </div>
     </div>

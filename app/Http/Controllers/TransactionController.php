@@ -19,8 +19,10 @@ class TransactionController extends Controller
     {
         $this->authorize('view', Transaction::class);
 
-        $transactions = Transaction::mainTransactions()
+        $transactions = Transaction::query()
+            ->mainTransactions()
             ->with('product')
+            ->orderBydesc('id')
             ->paginate();
 
         return view('transaction.index', compact('transactions'));

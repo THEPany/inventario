@@ -21,7 +21,8 @@ class PurchaseController extends Controller
             $query->with('provider');
         }])->whereHas('product', function ($query_2) {
             $query_2->mainProducts();
-        })->paginate();
+        })->orderByDesc('id')
+            ->paginate();
 
         return view('purchase.index')->with(['purchases' => $purchases]);
     }

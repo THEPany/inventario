@@ -1,7 +1,7 @@
 <template>
     <main>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+        <button type="button" class="btn btn-outline-primary font-weight-bold" data-toggle="modal" data-target="#exampleModalCenter">
             Productos
         </button>
 

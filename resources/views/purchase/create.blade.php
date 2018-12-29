@@ -9,6 +9,7 @@
             <div class="col-9">
                 @card
                 @slot('header', 'Registrar compra')
+                @slot('header_style', 'text-muted')
 
                 <form method="POST" action="{{ route('purchases.store') }}">
                     @csrf

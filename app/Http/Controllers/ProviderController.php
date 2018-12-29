@@ -17,6 +17,7 @@ class ProviderController extends Controller
         $this->authorize('view', Provider::class);
 
         $providers = Provider::mainProviders()->paginate();
+
         return view('provider/index')->with(['providers' => $providers]);
     }
 
@@ -47,7 +48,7 @@ class ProviderController extends Controller
         request()->validate([
             'name' => 'required',
             'phone' => 'required|min:14|max:14|unique:providers',
-            'address' => 'required|min:15',
+            'address' => 'required|min:15|max:255',
         ]);
 
         Provider::create([
@@ -91,7 +92,7 @@ class ProviderController extends Controller
         request()->validate([
             'name' => 'required',
             'phone' => 'required|min:14|max:14|unique:providers,phone,'. $provider->id,
-            'address' => 'required|min:15',
+            'address' => 'required|min:15|max:255',
         ]);
 
         $provider->update([

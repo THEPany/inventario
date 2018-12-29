@@ -9,6 +9,7 @@
             <div class="col-9">
                 @card
                 @slot('header', 'Crear Producto')
+                @slot('header_style', 'text-muted')
 
                 <form method="POST" action="{{ route('products.store') }}">
                     @include('product._fields')

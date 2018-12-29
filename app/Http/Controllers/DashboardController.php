@@ -8,8 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $this->authorize('view-dashboard');
-
         $providers_count = Provider::mainProviders()->count();
         $products_count = Product::mainProducts()->count();
         $users_count = User::count();

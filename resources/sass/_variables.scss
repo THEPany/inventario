@@ -1,6 +1,6 @@
 
 // Body
-$body-bg: #f8fafc;
+$body-bg: #f1f5f8;
 
 // Typography
 $font-family-sans-serif: "Nunito", sans-serif;
@@ -18,3 +18,11 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+// Overwrites
+$primary: $indigo;
+$theme-colors: (
+        primary: $indigo,
+        success: $teal,
+        secondary: #f8fafc
+);

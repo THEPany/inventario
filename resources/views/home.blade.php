@@ -4,19 +4,29 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h3 class="font-weight-bold">Sucursal principal</h3>
-            <div class="list-group text-center">
-                <a href="{{ url('/dashboard') }}" class="list-group-item list-group-item-action">Sucursal {{ config('app.name') }}</a>
-            </div>
+            <h3 class="font-weight-bold text-muted text-center">Scursales</h3>
+            <div class="row">
+                <a class="col-md-3"  href="{{ url('/dashboard') }}" style="color: #1b1e21; font-weight: bold">
+                    @card
+                    @slot('body_style', 'bg-white text-center ')
+                    <i class="far fa-building  fa-3x"></i>
+                    <br>
+                    Sucursal {{ config('app.name') }}
+                    @endcard
+                </a>
+                @foreach($branchOffices as $branchOffice)
+                    <a class="col-md-3"  href="{{ url("/{$branchOffice->slug}/dashboard") }}" style="color: #1b1e21; font-weight: bold">
+                        @card
+                            @slot('body_style', 'bg-white text-center ')
+                            <i class="far fa-building  fa-3x"></i>
+                            <br>
+                            Sucursal {{ $branchOffice->name }}
+                        @endcard
+                    </a>
+                @endforeach
 
-            @if($branchOffices->isNotEmpty())
-                <h3 class="font-weight-bold pt-5">Sucursal secundarias</h3>
-                <div class="list-group text-center">
-                    @foreach($branchOffices as $branchOffice)
-                        <a href="{{ url("/{$branchOffice->slug}/dashboard") }}" class="list-group-item list-group-item-action">Sucursal {{ $branchOffice->name }}</a>
-                    @endforeach
-                </div>
-            @endif
+                {{ $branchOffices->links() }}
+            </div>
         </div>
     </div>
 </div>

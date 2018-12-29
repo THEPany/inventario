@@ -20,7 +20,7 @@ class Provider extends Model
 
     public function scopeMainProviders($query)
     {
-        return $query->whereNull('branch_office_id');
+        return $query->where('branch_office_id', 0);
     }
 
     public function isMainProvider()

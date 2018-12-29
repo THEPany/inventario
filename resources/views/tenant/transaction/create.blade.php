@@ -7,13 +7,9 @@
                 @include('partials._tenant_sidebar')
             </div>
             <div class="col-md-9">
-                @card
-                    @slot('header', 'Registrar transacciónes')
-
-                    <tenant-transaction-main :products="{{ $products }}"
-                                      :branch-office="{{ $branchOffice }}">
-                    </tenant-transaction-main>
-                @endcard
+                <tenant-transaction-main :products="{{ $products }}"
+                                         :branch-office="{{ $branchOffice }}">
+                </tenant-transaction-main>
             </div>
         </div>
     </div>

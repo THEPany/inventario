@@ -9,6 +9,7 @@
             <div class="col-9">
                 @card
                 @slot('header', 'Crear Proveedor')
+                @slot('header_style', 'text-muted')
 
                 <form method="POST" action="{{ route('providers.store') }}" autocomplete="off">
                     @include('provider.fields')

@@ -10,16 +10,11 @@
                         Todas las habilidades
                         <div class="float-right">{{ $abilities->links() }}</div>
                     @endslot
+                    @slot('header_style', 'text-muted')
 
-                    @slot('body_style', 'p-0 pt-4')
+                    @slot('body_style', 'p-0 pt-0')
 
-                <table class="table table-striped m-0">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Habilidad</th>
-                    </tr>
-                    </thead>
+                <table class="table m-0">
                     <tbody>
                     @forelse($abilities  as $abilitie)
                         <tr>

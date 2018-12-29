@@ -9,10 +9,9 @@
 ])
 
 @input([
-    'label' => 'Correo Electrónico',
-    'name' => 'email',
-    'type' => 'email',
-    'value' => $user->email,
+    'label' => 'Nombre de usuario',
+    'name' => 'username',
+    'value' => $user->username,
     'required' => true,
 ])
 
@@ -52,7 +51,7 @@
 
     <div class="col-sm-6">
         <select class="form-control" id="branch_office_id" name="branch_office_id">
-            <option value="{{ old('branch_office_id', 0) }}" {{ $branchOffice->id === $user->branch_office_id ? 'selected' : ''  }}>Principal</option>
+            <option value="{{ old('branch_office_id', 0) }}" {{ $user->branch_office_id == 0 ? 'selected' : ''  }}>Principal</option>
             @foreach($branchOffices as $branchOffice)
                 <option value="{{ old('branch_office_id', $branchOffice->id) }}" {{ $branchOffice->id === $user->branch_office_id ? 'selected' : ''  }}>
                     {{ $branchOffice->name }}

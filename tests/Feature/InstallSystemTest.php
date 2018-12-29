@@ -43,7 +43,7 @@ class InstallSystemTest extends TestCase
     {
         $this->post('install/admin', [
             'name' => 'Cristian',
-            'email' => 'example@example.com',
+            'username' => 'cgomez',
             'password' => '123456',
             'password_confirmation' => '123456'
         ])
@@ -52,7 +52,7 @@ class InstallSystemTest extends TestCase
 
         $this->assertCredentials([
             'name' => 'cristian',
-            'email' => 'example@example.com',
+            'username' => 'cgomez',
             'password' => '123456'
         ]);
     }

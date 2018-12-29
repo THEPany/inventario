@@ -29,7 +29,7 @@ class Transaction extends Model
 
     public function scopeMainTransactions($query)
     {
-        return $query->whereNull('branch_office_id');
+        return $query->where('branch_office_id', 0);
     }
 
     public function isMainTransaction()

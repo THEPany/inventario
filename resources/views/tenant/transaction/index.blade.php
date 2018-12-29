@@ -18,7 +18,7 @@
                 @slot('body_style', 'p-0 pt-4')
 
                 @table
-                @slot('columns', ['#', 'Producto', 'Descripcion', 'Fechas'])
+                    @if($transactions->count()) @slot('columns', ['#', 'Producto', 'Descripcion', 'Fechas']) @endif
 
                 @forelse($transactions as $transaction)
                     <tr>
@@ -50,8 +50,15 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">
+                        <td colspan="3" class="text-center bg-secondary border-0 pb-5 pt-5">
                             <em>No hay datos registrados para esta tabla</em>
+                            <br>
+                            @can('tenat-create', App\Purchase::class)
+                                <a href="{{ url("/{$branchOffice->slug}/transactions/create") }}" class="btn btn-primary mt-4">
+                                    <i class="fas fa-plus"></i>
+                                    Registrar TRANSACCIONES
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforelse

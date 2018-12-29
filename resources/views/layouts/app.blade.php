@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="border-top:0.6rem solid #7886D7;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     @if(isset($branchOffice) && Route::current()->uri() != 'home')

@@ -23,7 +23,7 @@ class UpdateUserTest extends TestCase
         $this->actingAs($admin)
             ->put(route('users.update', $user), [
                 'name' => 'cristian gomez',
-                'email' => 'cristiangomeze@hotmail.com',
+                'username' => 'cgomez',
                 'branch_office_id' => 0
             ])
             ->assertStatus(Response::HTTP_FOUND)
@@ -31,7 +31,7 @@ class UpdateUserTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 
@@ -46,7 +46,7 @@ class UpdateUserTest extends TestCase
 
         $this->assertDatabaseMissing('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 
@@ -58,14 +58,14 @@ class UpdateUserTest extends TestCase
         $this->withExceptionHandling()->actingAs($user)
             ->put(route('users.update', $user), [
                 'name' => 'cristian gomez',
-                'email' => 'cristiangomeze@hotmail.com',
+                'username' => 'cgomez',
                 'branch_office_id' => 0
             ])
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertDatabaseMissing('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 
@@ -80,16 +80,16 @@ class UpdateUserTest extends TestCase
         $this->handleValidationExceptions()->actingAs($admin)
             ->put(route('users.update', $user), [])
             ->assertStatus(Response::HTTP_FOUND)
-            ->assertSessionHasErrors(['name', 'email']);
+            ->assertSessionHasErrors(['name', 'username']);
 
         $this->assertDatabaseMissing('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 
     /** @test */
-    function email_must_be_unique()
+    function username_must_be_unique()
     {
         $admin = factory(User::class)->create();
         $user = factory(User::class)->create();
@@ -99,9 +99,9 @@ class UpdateUserTest extends TestCase
         $this->handleValidationExceptions()->actingAs($admin)
             ->put(route('users.update', $user), [
                 'name' => 'cristian gomez',
-                'email' => $admin->email
+                'username' => $admin->username
             ])
             ->assertStatus(Response::HTTP_FOUND)
-            ->assertSessionHasErrors(['email']);
+            ->assertSessionHasErrors(['username']);
     }
 }

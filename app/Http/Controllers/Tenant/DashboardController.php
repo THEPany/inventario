@@ -9,8 +9,6 @@ class DashboardController extends Controller
 {
     public function index(BranchOffice $branchOffice)
     {
-        $this->authorize('tenant-view-dashboard');
-
         $providers_count = Provider::where('branch_office_id', $branchOffice->id)->count();
         $products_count = Product::where('branch_office_id', $branchOffice->id)->count();
         $purchases_count = Purchase::whereDate('created_at', now())->whereHas('product', function ($query) use ($branchOffice) {

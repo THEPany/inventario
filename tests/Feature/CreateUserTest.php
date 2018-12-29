@@ -22,7 +22,7 @@ class CreateUserTest extends TestCase
         $this->actingAs($user)
             ->post(route('users.store'), [
                 'name' => 'cristian gomez',
-                'email' => 'cristiangomeze@hotmail.com',
+                'username' => 'cgomez',
                 'password' => 'secret',
                 'password_confirmation' => 'secret',
                 'branch_office_id' => 0
@@ -32,7 +32,7 @@ class CreateUserTest extends TestCase
 
         $this->assertCredentials([
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
             'password' => 'secret',
         ]);
     }
@@ -42,7 +42,7 @@ class CreateUserTest extends TestCase
     {
         $this->withExceptionHandling()->post(route('users.store'), [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
             'password' => 'secret',
             'password_confirmation' => 'secret',
             'branch_office_id' => 0
@@ -52,7 +52,7 @@ class CreateUserTest extends TestCase
 
         $this->assertDatabaseMissing('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 
@@ -64,7 +64,7 @@ class CreateUserTest extends TestCase
         $this->withExceptionHandling()->actingAs($user)
             ->post(route('users.store'), [
                 'name' => 'cristian gomez',
-                'email' => 'cristiangomeze@hotmail.com',
+                'username' => 'cgomez',
                 'password' => 'secret',
                 'password_confirmation' => 'secret',
                 'branch_office_id' => 0
@@ -73,7 +73,7 @@ class CreateUserTest extends TestCase
 
         $this->assertDatabaseMissing('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 
@@ -87,16 +87,16 @@ class CreateUserTest extends TestCase
         $this->handleValidationExceptions()->actingAs($user)
             ->post(route('users.store'), [])
             ->assertStatus(Response::HTTP_FOUND)
-            ->assertSessionHasErrors(['name', 'email', 'password']);
+            ->assertSessionHasErrors(['name', 'username', 'password']);
 
         $this->assertDatabaseMissing('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 
     /** @test */
-    function email_must_be_unique()
+    function username_must_be_unique()
     {
         $user = factory(User::class)->create();
 
@@ -105,14 +105,14 @@ class CreateUserTest extends TestCase
         $this->handleValidationExceptions()->actingAs($user)
             ->post(route('users.store'), [
                 'name' => 'cristian gomez',
-                'email' => $user->email,
+                'username' => $user->username,
             ])
             ->assertStatus(Response::HTTP_FOUND)
-            ->assertSessionHasErrors(['email']);
+            ->assertSessionHasErrors(['username']);
 
         $this->assertDatabaseMissing('users', [
             'name' => 'cristian gomez',
-            'email' => 'cristiangomeze@hotmail.com',
+            'username' => 'cgomez',
         ]);
     }
 }

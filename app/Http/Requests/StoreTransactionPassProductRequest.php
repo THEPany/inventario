@@ -77,7 +77,7 @@ class StoreTransactionPassProductRequest extends FormRequest
             'branch_office_id' => $branchOffice->id,
         ], [
             'branch_office_id' => $branchOffice->id,
-            'name' => 'Proveedor por defecto',
+            'name' => 'Sucursal principal',
             'phone' => 'No especificado',
             'address' => 'No especificado',
         ]);

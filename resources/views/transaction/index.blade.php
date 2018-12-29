@@ -15,10 +15,12 @@
                     </div>
                 @endslot
 
-                @slot('body_style', 'p-0 pt-4')
+                @slot('header_style', 'text-muted')
+
+                @slot('body_style', 'p-0 pt-0')
 
                 @table
-                @slot('columns', ['#', 'Producto', 'Descripcion', 'Fechas'])
+                    @if ($transactions->count()) @slot('columns', ['#', 'Producto', 'Descripcion', 'Fechas']) @endif
 
                 @forelse($transactions as $transaction)
                     <tr>
@@ -34,24 +36,18 @@
                         <td>
                             <strong>Creación: </strong> {{ $transaction->created_at->format('d/m/Y') }}
                         </td>
-                        {{-- <td>
-                             <div class="dropdown">
-                                 <button class="btn btn-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                     <i class="fas fa-ellipsis-h"></i>
-                                 </button>
-                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                     <a href="{{ url("/providers/{$provider->id}/edit") }}" class="dropdown-item" >
-                                         <i class="fas fa-pencil-alt"></i>
-                                         Editar
-                                     </a>
-                                 </div>
-                             </div>
-                         </td>--}}
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">
+                        <td colspan="3" class="text-center bg-secondary border-0 pb-5 pt-5">
                             <em>No hay datos registrados para esta tabla</em>
+                            <br>
+                            @can('create', \App\Transaction::class)
+                                <a href="{{ url('/transactions/create') }}" class="btn btn-primary mt-4">
+                                    <i class="fas fa-plus"></i>
+                                    Registrar transacción
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforelse

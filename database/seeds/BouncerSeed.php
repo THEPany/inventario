@@ -27,7 +27,6 @@ class BouncerSeed extends Seeder
         $this->branchOfficeAbilities();
         $this->userAbilities();
         $this->transactionAbilities();
-        $this->othersAbilities();
     }
 
     protected function createRoles()
@@ -253,21 +252,6 @@ class BouncerSeed extends Seeder
         Bouncer::ability()->createForModel(Transaction::class, [
             'name' => 'tenant-create',
             'title' => 'Crear transacción en sucursal'
-        ]);
-    }
-
-    protected function othersAbilities(): void
-    {
-        Bouncer::ability()->create([
-            'name' => ' view-dashboard',
-            'title' => 'Ver dashboard'
-        ]);
-
-        // Tenant Abilities
-
-        Bouncer::ability()->create([
-            'name' => ' tenant-view-dashboard',
-            'title' => 'Ver dashboard en sucursal'
         ]);
     }
 

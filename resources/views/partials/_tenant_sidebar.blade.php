@@ -1,9 +1,7 @@
-@can('tenant-view-dashboard')
-    <a href="{{ url("/{$branchOffice->slug}/dashboard") }}" class="list-group-item border-0 bg-transparent text-dark font-weight-bold  pt-0 pb-1">
-        <i class="fas fa-tachometer-alt"></i>
-        Dashboard
-    </a>
-@endcan
+<a href="{{ url("/{$branchOffice->slug}/dashboard") }}" class="list-group-item border-0 bg-transparent text-dark font-weight-bold  pt-0 pb-1">
+    <i class="fas fa-tachometer-alt"></i>
+    Dashboard
+</a>
 
 {{-- PROVIDER --}}
 

@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         $this->authorize('view', Product::class);
 
-        $products = Product::mainProducts()->paginate();
+        $products = Product::mainProducts()->orderByDesc('id')->paginate();
 
         return view('product/index')->with(['products' => $products]);
     }
@@ -34,7 +34,11 @@ class ProductController extends Controller
         $this->authorize('create', Product::class);
 
         $product = new Product;
-        $providers = Provider::select('id', 'name')->get();
+
+        $providers = Provider::query()
+            ->mainProviders()
+            ->select('id', 'name')
+            ->get();
 
         return view('product/create')->with([
             'product' => $product,
@@ -64,7 +68,7 @@ class ProductController extends Controller
             'stock' => 'required|numeric',
             'min_stock' => 'nullable|numeric',
             'price' => 'required|numeric',
-            'description' => 'required'
+            'description' => 'required|min:10'
         ]);
 
         DB::transaction(function () {
@@ -100,7 +104,10 @@ class ProductController extends Controller
 
         abort_unless($product->isMainProdut(), 403);
 
-        $providers = Provider::select('id', 'name')->get();
+        $providers = Provider::query()
+            ->mainProviders()
+            ->select('id', 'name')
+            ->get();
 
         return view('product.edit')->with([
             'product' => $product,

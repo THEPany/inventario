@@ -1,63 +1,64 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 float-md-left">
-                <transaction-product-modal :products="products"
-                                           v-on:addToCart="addToCartMethod">
-                </transaction-product-modal>
+    <div class="card shadow-sm">
+        <div class="card-header bg-white border-0 d-flex justify-content-between">
+            <h4 class="text-muted">Registrar Transacción</h4>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label text-md-right">Enviar a sucursal</label>
 
-                <br>
-
-                <button class="btn btn-success btn-sm"
-                        @click.prevent="submitTransaction"
-                        :disabled="addedProducts.length === 0 || disable">Registrar transacciónes</button>
-            </div>
-            <div class="col-md-9 float-md-right">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label text-md-right">Enviar a sucursal</label>
-
-                    <div class="col-md-6">
-                        <select class="form-control" v-model="branchOfficeId">
-                            <option :value="null">Selecciona esta opción en caso de que no quieras enviar.</option>
-                            <option v-for="branchOffice in branchOffices" :value="branchOffice.id">{{ branchOffice.name}}</option>
-                        </select>
-                    </div>
+                <div class="col-md-6">
+                    <select class="form-control" v-model="branchOfficeId">
+                        <option :value="null">Selecciona esta opción en caso de que no quieras enviar.</option>
+                        <option v-for="branchOffice in branchOffices" :value="branchOffice.id">{{ branchOffice.name}}</option>
+                    </select>
                 </div>
             </div>
-            <div class="col-md-12 pt-5" v-if="addedProducts.length > 0">
-                <table class="table" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                        <th>Descripcion</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="product in addedProducts">
-                        <td>{{ product.id}}</td>
-                        <td>
-                            {{ product.name }}
-                            <br>
-                            <a @click.prevent="deleteToCartMethod(product)" href="#">Eliminar</a>
-                        </td>
-                        <td>{{ product.quantity }}</td>
-                        <td>
-                            <textarea v-model="product.description" class="form-control" placeholder="Descripción de la transacion"></textarea>
-                        </td>
-                        <td>
-                            <button @click.prevent="addToCartMethod(product)" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus-circle"></i>
-                            </button>
-                            <button @click.prevent="removeToCartMethod(product)" class="btn btn-outline-secondary btn-sm">
-                                <i class="fas fa-minus-circle"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+        </div>
+        <div class="card-body bg-white">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-between">
+                    <transaction-product-modal :products="products"
+                                               v-on:addToCart="addToCartMethod">
+                    </transaction-product-modal>
+
+                    <button class="btn btn-success text-white font-weight-bold"
+                            @click.prevent="submitTransaction"
+                            :disabled="addedProducts.length === 0 || disable">Registrar transacciónes</button>
+                </div>
+                <div class="col-md-12 pt-5" v-if="addedProducts.length > 0">
+                    <table class="table" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Descripcion</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="product in addedProducts">
+                            <td>{{ product.id}}</td>
+                            <td>
+                                {{ product.name }}
+                                <br>
+                                <a @click.prevent="deleteToCartMethod(product)" href="#">Eliminar</a>
+                            </td>
+                            <td>{{ product.quantity }}</td>
+                            <td>
+                                <textarea v-model="product.description" class="form-control" placeholder="Descripción de la transacion"></textarea>
+                            </td>
+                            <td>
+                                <button @click.prevent="addToCartMethod(product)" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-plus-circle"></i>
+                                </button>
+                                <button @click.prevent="removeToCartMethod(product)" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -130,7 +131,7 @@
                     swal("¡Buen trabajo!", response.data.data, "success");
                     setTimeout(() => { location.reload(); }, 4000);
                 }).catch(error => {
-                    swal("¡Oh no!", error, "error");
+                    swal("¡Oh no!", JSON.stringify(error.response.data), "error");
                 });
             },
             storeTransaction(){
@@ -140,7 +141,7 @@
                     swal("¡Buen trabajo!", response.data.data, "success");
                     setTimeout(() => { location.reload(); }, 4000);
                 }).catch(error => {
-                    swal("¡Oh no!", error, "error");
+                    swal("¡Oh no!", JSON.stringify(error.response.data), "error");
                 });
             }
         }

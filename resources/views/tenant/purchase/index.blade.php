@@ -14,7 +14,10 @@
                         {{ $purchases->links() }}
                     </div>
                 @endslot
-                @slot('body_style', 'p-0 pt-4')
+
+                @slot('header_style', 'text-muted')
+
+                @slot('body_style', 'p-0 pt-0')
 
                     @table
                     @slot('columns', ['Descripcion', 'stock', 'Fechas'])
@@ -25,7 +28,7 @@
                                 <strong>{{ $purchase->description }}</strong>
                             </td>
                             <td>
-                                <span class="badge badge-success">{{ $purchase->stock }}</span>
+                                <span class="badge badge-success text-white">{{ $purchase->stock }}</span>
                             </td>
                             <td>
                                 <strong>Creación: </strong> {{ $purchase->created_at->format('d/m/Y') }}
@@ -46,8 +49,15 @@
                         </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="text-center">
+                        <td colspan="3" class="text-center bg-secondary border-0 pb-5 pt-5">
                             <em>No hay datos registrados para esta tabla</em>
+                            <br>
+                            @can('tenat-create', App\Purchase::class)
+                                <a href="{{ url("/{$branchOffice->slug}/purchases/create") }}" class="btn btn-primary mt-4">
+                                    <i class="fas fa-plus"></i>
+                                    Registrar compra
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                     @endforelse

@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->integer('min_stock')->nullable();
             $table->decimal('price',9,2);
-            $table->string('description');
+            $table->text('description');
             $table->enum('status', [\App\Product::DISPONIBLE, \App\Product::NO_DISPONIBLE])->default(\App\Product::DISPONIBLE);
             $table->timestamps();
             $table->unique(['name', 'branch_office_id']);

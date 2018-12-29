@@ -10,11 +10,9 @@ class InstallSystem
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle()
     {
         try{
             if (User::all()->isEmpty()) {
@@ -25,6 +23,6 @@ class InstallSystem
             return redirect()->route('install');
         }
 
-        return $next($request);
+        return redirect('login');
     }
 }

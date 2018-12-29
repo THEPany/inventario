@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'username' => 'required|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'branch_office_id' => 'required',
             'role' => 'nullable|String'
@@ -36,7 +36,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'nombre',
-            'email' => 'correo electrónico',
+            'username' => 'nombre de usuario',
             'password' => 'contraseña',
             'branch_office_id' => 'sucursal',
             'role' => 'rol'
@@ -46,7 +46,7 @@ class StoreUserRequest extends FormRequest
     {
         $user = User::forceCreate([
             'name' => $this->name,
-            'email' => $this->email,
+            'username' => $this->username,
             'password' => Hash::make($this->password),
             'branch_office_id' => $this->branch_office_id,
         ]);
